@@ -74,10 +74,14 @@
     }
 
     // Moves the plan to `now`. Returns the indices whose flip began and the indices whose flip ended
-    // in this call; each flip appears once in `started` and once in `finished`. A dot that finishes
+    // in this call; each flip appears once in `started` and once in `finished`. For started[k], the face
+    // it turns to is startedTo[k] and its length startedMs[k], captured when it was reported (a flip can
+    // start and end inside one call, after which the arrays no longer describe it). A dot that finishes
     // still unlike the target flips again at once, from the instant the last one ended.
     function advance(now) {
       const started = [];
+      const startedTo = [];
+      const startedMs = [];
       const finished = [];
 
       for (const index of Array.from(active)) {
@@ -87,6 +91,8 @@
             if (flipStart[index] > now) break;
             reported[index] = 1;
             started.push(index);
+            startedTo.push(flipTo[index]);
+            startedMs.push(flipEnd[index] - flipStart[index]);
           }
           if (flipEnd[index] > now) break;
 
@@ -100,7 +106,7 @@
         }
       }
 
-      return { started, finished };
+      return { started, startedTo, startedMs, finished };
     }
 
     // Drops every flip and shows the target at once. Returns the indices the board must redraw: those

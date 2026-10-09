@@ -3,13 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
 <title>Verbatempus Flip-dot</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<main id="stage">
+  <div id="board" aria-label="Loading the time"></div>
+  <noscript>This clock needs JavaScript.</noscript>
+</main>
+<footer>
+  <a href="https://verbatempus.com">Verbatempus</a> &middot;
+  <a href="https://github.com/LemJukes/VT-flipdot">source</a>
+</footer>
 <script src="vendor/verbatempus.iife.js"></script>
 <script src="src/glyphs.js"></script>
 <script src="src/layout.js"></script>
 <script src="src/raster.js"></script>
 <script src="src/plan.js"></script>
+<script src="src/clock.js"></script>
+<script src="src/params.js"></script>
+<script src="src/board.js"></script>
+<script src="src/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,76 @@
+:root {
+  --panel: #0b0b0b;
+  --dot-off: #1e1e1e;
+  --dot-on: #f2e200;
+  --page: #141414;
+  --text: #9a9a9a;
+  --text-link: #c9c9c9;
+  --dot-fill: 0.82; /* disc diameter as a fraction of the dot pitch */
+  --gutter: 16px;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: var(--page);
+  color: var(--text);
+  font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* The stage takes all the room the footer leaves; main.js fits the board into its content box. */
+#stage {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--pitch, 4px));
+  grid-auto-rows: var(--pitch, 4px);
+  background: var(--panel);
+  border-radius: calc(var(--pitch, 4px) * 1.5);
+  contain: layout paint;
+  box-shadow: 0 0 0 1px #000, 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.board i {
+  width: calc(var(--pitch, 4px) * var(--dot-fill));
+  height: calc(var(--pitch, 4px) * var(--dot-fill));
+  place-self: center;
+  border-radius: 50%;
+  background: var(--dot-off);
+}
+
+.board i.on {
+  background: var(--dot-on);
+}
+
+footer {
+  flex: none;
+  padding: 0 var(--gutter) 12px;
+  text-align: center;
+  font-size: 12px;
+}
+
+footer a {
+  color: var(--text-link);
+}
+
+noscript {
+  padding: var(--gutter);
+}

@@ -12,7 +12,7 @@ const allDark = (planner) => frame(planner, () => false);
 const checker = (planner) => frame(planner, (index) => index % 2 === 0);
 const same = (a, b) => assert.deepEqual(Array.from(a), Array.from(b));
 const lit = (planner) => Array.from(planner.shown).filter(Boolean).length;
-const NOTHING = { started: [], finished: [] };
+const NOTHING = { started: [], startedTo: [], startedMs: [], finished: [] };
 
 // Advance in 1 ms steps, recording each flip as it is reported. A 1 ms step is shorter than a flip,
 // so a flip is never reported started and finished in one call and each started index appears once
@@ -179,6 +179,27 @@ test('a dot that finishes unlike the target flips again from the instant its las
   assert.equal(planner.shown[index], 1);
   assert.equal(planner.flipTo[index], 0, 'the return flip is under way');
   assert.equal(planner.flipStart[index], endedAt);
+});
+
+test('started flips are reported with the face they turn to and their length', () => {
+  const planner = make();
+  planner.setTarget(allLit(planner), 0);
+  const first = planner.advance(60);
+  assert.ok(first.started.length > 0);
+  assert.deepEqual(plain(first.startedTo), Array.from(first.started, () => 1));
+  assert.deepEqual(plain(first.startedMs), Array.from(first.started, () => 100));
+
+  // One slow frame later every flip has started and ended inside the call; the report still says so.
+  const slow = make();
+  slow.setTarget(allLit(slow), 0);
+  const report = slow.advance(5000);
+  assert.equal(report.started.length, slow.count);
+  assert.ok(report.startedTo.every((to) => to === 1));
+  assert.equal(slow.activeCount, 0);
+
+  const quiet = make(20, 5, { reducedMotion: true });
+  quiet.setTarget(allLit(quiet), 0);
+  assert.ok(quiet.advance(0).startedMs.every((ms) => ms === 0));
 });
 
 test('a late frame does not delay the return flip: it starts at the old flip\'s end, not at now', () => {
