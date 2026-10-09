@@ -1,0 +1,5 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Vendored Core must stay byte-identical to the npm tarball (its sha256 is tested)
+vendor/** -text

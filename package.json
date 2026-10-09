@@ -1,0 +1,7 @@
+{
+  "name": "vt-flipdot",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}
