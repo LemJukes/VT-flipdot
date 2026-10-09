@@ -8,15 +8,7 @@ import { LEVELS, corpus, instants, phrase, splitCheck, stats, worstCase, WELL_FO
 const WIDTH = 16;
 const SPLIT_PAIRS = 10000;
 
-// Remove once layout.js and raster.js land (run sheet step 3).
-const PENDING = { todo: 'layout lands in step 3' };
-
 const { Verbatempus, VTFlipdot } = load();
-const layout = () => {
-  assert.ok(VTFlipdot?.layout, 'VTFlipdot.layout is missing');
-  assert.ok(VTFlipdot?.raster, 'VTFlipdot.raster is missing');
-  return VTFlipdot;
-};
 
 for (const level of LEVELS) {
   describe(level, () => {
@@ -43,19 +35,19 @@ for (const level of LEVELS) {
       }
     });
 
-    test('the worst case wraps to exactly L lines', PENDING, (t) => {
-      const { layout: lay, raster } = layout();
-      const worst = worstCase(Verbatempus, lay.wrap, level, WIDTH);
+    test('the worst case wraps to exactly L lines', (t) => {
+      const { layout, raster } = VTFlipdot;
+      const worst = worstCase(Verbatempus, layout.wrap, level, WIDTH);
       const { dateShapes, timeShapes } = stats(Verbatempus, level);
       t.diagnostic(`${dateShapes} date shapes x ${timeShapes} time shapes`);
       t.diagnostic(`worst: ${worst.lines} lines at ${new Date(worst.ms).toISOString()}: ${worst.text}`);
       assert.equal(raster.LINES[level], worst.lines);
     });
 
-    test('random both phrases wrap within L lines', PENDING, () => {
-      const { layout: lay, raster } = layout();
+    test('random both phrases wrap within L lines', () => {
+      const { layout, raster } = VTFlipdot;
       for (const ms of instants(5000, 99)) {
-        const lines = lay.wrap(phrase(Verbatempus, ms, level, 'both'), WIDTH).length;
+        const lines = layout.wrap(phrase(Verbatempus, ms, level, 'both'), WIDTH).length;
         assert.ok(lines <= raster.LINES[level], `${new Date(ms).toISOString()} wraps to ${lines} lines`);
       }
     });
