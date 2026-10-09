@@ -48,9 +48,9 @@ parameters, the static rules for `index.html`, and the corpus check above. They 
 
 ## Phrasing
 
-All the wording comes from [verbatempus](https://www.npmjs.com/package/verbatempus) **2.0.0**, vendored
+All the wording comes from [verbatempus](https://www.npmjs.com/package/verbatempus) **2.0.1**, vendored
 unmodified as `vendor/verbatempus.iife.js` (sha256
-`a3e02b0613e502c0b10eadcbde7411ee4b7794648e434c25e280fe2a16e6cc19`, the file in the npm tarball).
+`506df0316b05c9100b3915a8b46b9710e1aaaf0335b25380b60cbbb5fa0c395c`, the file in the npm tarball).
 `.gitattributes` keeps it byte-exact on every platform, and a test checks the hash. This repository adds
 no phrasing logic.
 

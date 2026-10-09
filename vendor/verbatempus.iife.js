@@ -1,4 +1,4 @@
-/*! verbatempus v2.0.0 | MIT */
+/*! verbatempus v2.0.1 | MIT */
 var Verbatempus = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -282,7 +282,7 @@ var Verbatempus = (() => {
   var TERSE_BANDS = [
     band(0, null, null, null, "this"),
     band(5, "just after", null, null, "this"),
-    band(14, "after", null, null, "this"),
+    band(14, "a bit after", null, null, "this"),
     band(24, null, "quarter", "after", "this"),
     band(39, null, "half", "past", "this"),
     band(49, null, "quarter", "to", "next"),
